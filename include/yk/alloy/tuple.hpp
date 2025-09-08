@@ -78,6 +78,7 @@ private:
 template<class... Ts>
 class tuple : private detail::tuple_impl<Ts...> {
 private:
+  static_assert(!std::disjunction_v<std::is_reference<Ts>...>, "reference type is not allowed to instantiate alloy::tuple");
   using base_type = detail::tuple_impl<Ts...>;
 
 public:
