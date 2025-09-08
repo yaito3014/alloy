@@ -6,7 +6,9 @@
 
 #include <tuple>
 
-namespace yk::alloy::detail {
+namespace yk::alloy {
+
+namespace detail {
 
 template<std::size_t I>
 struct std_tuple_getter {
@@ -22,11 +24,13 @@ struct make_std_tuple_getter {
   static constexpr auto value = std_tuple_getter<I>{};
 };
 
-}  // namespace yk::alloy::detail
+}  // namespace detail
 
 template<class... Ts>
-struct yk::alloy::adaptor<std::tuple<Ts...>> {
+struct adaptor<std::tuple<Ts...>> {
   using getters = typename integer_sequence_to_non_type_list_t<std::index_sequence_for<Ts...>>::template apply_meta_t<detail::make_std_tuple_getter>;
 };
+
+}  // namespace yk::alloy
 
 #endif  // YK_ALLOY_ADAPT_STD_TUPLE_HPP
