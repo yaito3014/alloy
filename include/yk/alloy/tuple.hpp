@@ -128,4 +128,12 @@ struct adaptor<tuple<Ts...>> {
 
 }  // namespace yk::alloy
 
+template<class... Ts>
+struct std::tuple_size<yk::alloy::tuple<Ts...>> : std::integral_constant<std::size_t, sizeof...(Ts)> {};
+
+template<std::size_t N, class... Ts>
+struct std::tuple_element<N, yk::alloy::tuple<Ts...>> {
+  using type = yk::alloy::detail::ttp_pack_indexing_t<N, Ts...>;
+};
+
 #endif  // YK_ALLOY_TUPLE_HPP
