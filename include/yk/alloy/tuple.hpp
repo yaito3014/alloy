@@ -35,7 +35,7 @@ template<class From, class To>
 using copy_const_t = typename copy_const<From, To>::type;
 
 template<class From, class To>
-using forward_like_t = override_ref_t<From, copy_const_t<std::remove_reference_t<From>, std::remove_reference_t<To>>>;
+using forward_like_t = override_ref_t<From&&, copy_const_t<std::remove_reference_t<From>, std::remove_reference_t<To>>>;
 
 template<class... Ts>
 class tuple_impl;
