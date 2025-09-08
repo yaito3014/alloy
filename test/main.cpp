@@ -52,4 +52,11 @@ BOOST_AUTO_TEST_CASE(adapt)
   BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<10, S>, int const>);
 }
 
+BOOST_AUTO_TEST_CASE(tuple)
+{
+  using Tuple = yk::alloy::tuple<int, float>;
+  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple>, int>);
+  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple>, float>);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
