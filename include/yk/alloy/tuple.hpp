@@ -103,6 +103,30 @@ public:
   }
 };
 
+template<std::size_t N, class... Ts>
+constexpr decltype(auto) get(tuple<Ts...>& t)
+{
+  return t.template get<N>();
+}
+
+template<std::size_t N, class... Ts>
+constexpr decltype(auto) get(tuple<Ts...> const& t)
+{
+  return t.template get<N>();
+}
+
+template<std::size_t N, class... Ts>
+constexpr decltype(auto) get(tuple<Ts...>&& t)
+{
+  return std::move(t).template get<N>();
+}
+
+template<std::size_t N, class... Ts>
+constexpr decltype(auto) get(tuple<Ts...> const&& t)
+{
+  return std::move(t).template get<N>();
+}
+
 namespace detail {
 
 template<std::size_t N>
