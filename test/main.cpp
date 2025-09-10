@@ -58,11 +58,21 @@ BOOST_AUTO_TEST_CASE(tuple)
   BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple>, int>);
   BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple>, float>);
 
-  Tuple t(42, 3.14f);
-  BOOST_TEST(t.get<0>() == 42);
-  BOOST_TEST(t.get<1>() == 3.14f);
-  BOOST_TEST(get<0>(t) == 42);
-  BOOST_TEST(get<1>(t) == 3.14f);
+  {
+    Tuple t(42, 3.14f);
+    BOOST_TEST(t.get<0>() == 42);
+    BOOST_TEST(t.get<1>() == 3.14f);
+    BOOST_TEST(get<0>(t) == 42);
+    BOOST_TEST(get<1>(t) == 3.14f);
+  }
+
+  {
+    Tuple t(3.14f, 42);
+    BOOST_TEST(t.get<0>() == 3);
+    BOOST_TEST(t.get<1>() == 42.f);
+    BOOST_TEST(get<0>(t) == 3);
+    BOOST_TEST(get<1>(t) == 42.f);
+  }
 }
 
 BOOST_AUTO_TEST_SUITE_END()

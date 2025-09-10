@@ -41,6 +41,19 @@ using copy_const_t = typename copy_const<From, To>::type;
 template<class From, class To>
 using forward_like_t = override_ref_t<From&&, copy_const_t<std::remove_reference_t<From>, std::remove_reference_t<To>>>;
 
+template<class Tuple, class... Us>
+struct tuple_disambiguating_constraint : std::true_type {};
+
+template<template<class...> class TTuple, class... Ts, class... Us>
+  requires (sizeof...(Ts) == 1)
+struct tuple_disambiguating_constraint<TTuple<Ts...>, Us...> : std::negation<std::is_same<std::remove_cvref_t<detail::ttp_pack_indexing_t<0, Us...>>, TTuple<Ts...>>> {};
+
+template<template<class...> class TTuple, class... Ts, class... Us>
+  requires (sizeof...(Ts) == 2 || sizeof...(Ts) == 3)
+struct tuple_disambiguating_constraint<TTuple<Ts...>, Us...>
+    : std::bool_constant<!std::is_same_v<std::remove_cvref_t<detail::ttp_pack_indexing_t<0, Us...>>, std::allocator_arg_t> ||
+                         std::is_same_v<std::remove_cvref_t<detail::ttp_pack_indexing_t<0, Ts...>>, std::allocator_arg_t>> {};
+
 template<class... Ts>
 class tuple_impl;
 
@@ -65,6 +78,16 @@ public:
   constexpr explicit tuple_impl(T const& x, Ts const&... xs)
     requires std::conjunction_v<std::is_copy_constructible<T>, std::is_copy_constructible<Ts>...>
       : value(x), rest(xs...)
+  {
+  }
+
+  template<class U, class... Us>
+  constexpr explicit tuple_impl(U&& y, Us&&... ys)
+    requires requires {
+      requires sizeof...(Ts) == sizeof...(Us);
+      requires std::conjunction_v<tuple_disambiguating_constraint<tuple_impl, U, Us...>, std::is_constructible<T, U>, std::is_constructible<Ts, Us>...>;
+    }
+      : value(std::forward<U>(y)), rest(std::forward<Us>(ys)...)
   {
   }
 
@@ -105,6 +128,18 @@ public:
   constexpr tuple(Ts const&... xs)
     requires (sizeof...(Ts) > 0) && std::conjunction_v<std::is_copy_constructible<Ts>...>
       : base_type(xs...)
+  {
+  }
+
+  // TODO: add explicit specifier
+  template<class... Us>
+  constexpr tuple(Us&&... ys)
+    requires requires {
+      requires (sizeof...(Ts) == sizeof...(Us));
+      requires (sizeof...(Ts) > 0);
+      requires std::conjunction_v<detail::tuple_disambiguating_constraint<tuple, Us...>, std::is_constructible<Ts, Us>...>;
+    }
+      : base_type(std::forward<Us>(ys)...)
   {
   }
 
