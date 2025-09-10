@@ -16,6 +16,10 @@ namespace yk::alloy {
 template<class... Ts>
 class tuple;
 
+struct default_initialize_t {};
+
+inline constexpr default_initialize_t default_initialize{};
+
 namespace detail {
 
 template<class From, class To>
@@ -46,13 +50,18 @@ class tuple_impl<> {};
 template<class T, class... Ts>
 class tuple_impl<T, Ts...> {
 public:
-  constexpr tuple_impl()
+  constexpr explicit tuple_impl(default_initialize_t)
+    requires std::conjunction_v<std::is_default_constructible<T>, std::is_default_constructible<Ts>...>
+  {
+  }
+
+  constexpr explicit tuple_impl()
     requires std::conjunction_v<std::is_default_constructible<T>, std::is_default_constructible<Ts>...>
       : value{}, rest()
   {
   }
 
-  constexpr tuple_impl(T const& x, Ts const&... xs)
+  constexpr explicit tuple_impl(T const& x, Ts const&... xs)
     requires std::conjunction_v<std::is_copy_constructible<T>, std::is_copy_constructible<Ts>...>
       : value(x), rest(xs...)
   {
@@ -82,6 +91,8 @@ private:
   using base_type = detail::tuple_impl<Ts...>;
 
 public:
+  constexpr explicit tuple(default_initialize_t) : base_type(default_initialize) {}
+
   // TODO: add explicit specifier
   constexpr tuple()
     requires std::conjunction_v<std::is_default_constructible<Ts>...>
