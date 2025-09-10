@@ -52,6 +52,7 @@ class tuple_impl<T, Ts...> {
 public:
   constexpr explicit tuple_impl(default_initialize_t)
     requires std::conjunction_v<std::is_default_constructible<T>, std::is_default_constructible<Ts>...>
+      : rest(default_initialize)
   {
   }
 
