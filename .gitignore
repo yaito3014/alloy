@@ -1,4 +1,5 @@
 .clang-format
 
+.vs/
 .vscode/
 build/
