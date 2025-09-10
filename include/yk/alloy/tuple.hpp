@@ -59,7 +59,7 @@ struct tuple_element_wise_constructible_impl {};
 
 template<class UTuple, std::size_t... Is, class... Ts>
 struct tuple_element_wise_constructible_impl<UTuple, std::index_sequence<Is...>, Ts...>
-    : std::conjunction<std::is_constructible<Ts, decltype(std::declval<UTuple>().template get<Is>())>...> {};
+    : std::conjunction<std::is_constructible<Ts, decltype(get<Is>(std::declval<UTuple>()))>...> {};
 
 template<class UTuple, class... Ts>
 struct tuple_element_wise_constructible : tuple_element_wise_constructible_impl<UTuple, std::index_sequence_for<Ts...>, Ts...> {};
