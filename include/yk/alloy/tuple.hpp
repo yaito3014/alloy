@@ -54,6 +54,23 @@ struct tuple_disambiguating_constraint<TTuple<Ts...>, Us...>
     : std::bool_constant<!std::is_same_v<std::remove_cvref_t<detail::ttp_pack_indexing_t<0, Us...>>, std::allocator_arg_t> ||
                          std::is_same_v<std::remove_cvref_t<detail::ttp_pack_indexing_t<0, Ts...>>, std::allocator_arg_t>> {};
 
+template<class UTuple, class IndexSeq, class... Ts>
+struct tuple_element_wise_constructible_impl {};
+
+template<class UTuple, std::size_t... Is, class... Ts>
+struct tuple_element_wise_constructible_impl<UTuple, std::index_sequence<Is...>, Ts...>
+    : std::conjunction<std::is_constructible<Ts, decltype(std::declval<UTuple>().template get<Is>())>...> {};
+
+template<class UTuple, class... Ts>
+struct tuple_element_wise_constructible : tuple_element_wise_constructible_impl<UTuple, std::index_sequence_for<Ts...>, Ts...> {};
+
+template<class UTuple, class... Ts>
+inline constexpr bool tuple_element_wise_constructible_v = tuple_element_wise_constructible<UTuple, Ts...>::value;
+
+template<class UTuple, class... Ts>
+concept tuple_one_element_not_constructible_from_tuple =
+    (sizeof...(Ts) > 1) || !(std::is_convertible_v<UTuple, detail::ttp_pack_indexing_t<0, Ts...>> || std::is_constructible_v<detail::ttp_pack_indexing_t<0, Ts...>, UTuple>);
+
 template<class... Ts>
 class tuple_impl;
 
@@ -63,30 +80,35 @@ class tuple_impl<> {};
 template<class T, class... Ts>
 class tuple_impl<T, Ts...> {
 public:
-  constexpr explicit tuple_impl(default_initialize_t)
-    requires std::conjunction_v<std::is_default_constructible<T>, std::is_default_constructible<Ts>...>
-      : rest(default_initialize)
+  constexpr explicit tuple_impl(default_initialize_t) : rest(default_initialize) {}
+
+  constexpr explicit tuple_impl() : value{}, rest() {}
+
+  constexpr explicit tuple_impl(T const& x, Ts const&... xs) : value(x), rest(xs...) {}
+
+  template<class U, class... Us>
+  constexpr tuple_impl(tuple_impl<U, Us...>& other) : value(other.value), rest(other.rest)
   {
   }
 
-  constexpr explicit tuple_impl()
-    requires std::conjunction_v<std::is_default_constructible<T>, std::is_default_constructible<Ts>...>
-      : value{}, rest()
+  template<class U, class... Us>
+  constexpr tuple_impl(tuple_impl<U, Us...> const& other) : value(other.value), rest(other.rest)
   {
   }
 
-  constexpr explicit tuple_impl(T const& x, Ts const&... xs)
-    requires std::conjunction_v<std::is_copy_constructible<T>, std::is_copy_constructible<Ts>...>
-      : value(x), rest(xs...)
+  template<class U, class... Us>
+  constexpr tuple_impl(tuple_impl<U, Us...>&& other) : value(std::move(other).value), rest(std::move(other).rest)
+  {
+  }
+
+  template<class U, class... Us>
+  constexpr tuple_impl(tuple_impl<U, Us...> const&& other) : value(std::move(other).value), rest(std::move(other).rest)
   {
   }
 
   template<class U, class... Us>
   constexpr explicit tuple_impl(U&& y, Us&&... ys)
-    requires requires {
-      requires sizeof...(Ts) == sizeof...(Us);
-      requires std::conjunction_v<tuple_disambiguating_constraint<tuple_impl, U, Us...>, std::is_constructible<T, U>, std::is_constructible<Ts, Us>...>;
-    }
+    requires (sizeof...(Ts) == sizeof...(Us))
       : value(std::forward<U>(y)), rest(std::forward<Us>(ys)...)
   {
   }
@@ -102,6 +124,9 @@ public:
   }
 
 private:
+  template<class... Us>
+  friend class tuple_impl;
+
   YK_ALLOY_DETAIL_NO_UNIQUE_ADDRESS T value;
   YK_ALLOY_DETAIL_NO_UNIQUE_ADDRESS tuple_impl<Ts...> rest;
 };
@@ -149,11 +174,63 @@ public:
     requires std::conjunction_v<std::is_move_constructible<Ts>...>
   = default;
 
+  // TODO: add explicit specifier
+  template<class... Us>
+    requires requires {
+      requires (sizeof...(Ts) == sizeof...(Us));
+      requires std::negation_v<std::conjunction<std::is_same<Ts, Us>...>>;
+      requires detail::tuple_element_wise_constructible_v<tuple<Us...>&, Ts...>;
+      requires detail::tuple_one_element_not_constructible_from_tuple<tuple<Us...>&, Ts...>;
+    }
+  constexpr tuple(tuple<Us...>& other) : base_type(other)
+  {
+  }
+
+  // TODO: add explicit specifier
+  template<class... Us>
+    requires requires {
+      requires (sizeof...(Ts) == sizeof...(Us));
+      requires std::negation_v<std::conjunction<std::is_same<Ts, Us>...>>;
+      requires detail::tuple_element_wise_constructible_v<tuple<Us...> const&, Ts...>;
+      requires detail::tuple_one_element_not_constructible_from_tuple<tuple<Us...> const&, Ts...>;
+    }
+  constexpr tuple(tuple<Us...> const& other) : base_type(other)
+  {
+  }
+
+  // TODO: add explicit specifier
+  template<class... Us>
+    requires requires {
+      requires (sizeof...(Ts) == sizeof...(Us));
+      requires std::negation_v<std::conjunction<std::is_same<Ts, Us>...>>;
+      requires detail::tuple_element_wise_constructible_v<tuple<Us...>&&, Ts...>;
+      requires detail::tuple_one_element_not_constructible_from_tuple<tuple<Us...>&&, Ts...>;
+    }
+  constexpr tuple(tuple<Us...>&& other) : base_type(std::move(other))
+  {
+  }
+
+  // TODO: add explicit specifier
+  template<class... Us>
+    requires requires {
+      requires (sizeof...(Ts) == sizeof...(Us));
+      requires std::negation_v<std::conjunction<std::is_same<Ts, Us>...>>;
+      requires detail::tuple_element_wise_constructible_v<tuple<Us...> const&&, Ts...>;
+      requires detail::tuple_one_element_not_constructible_from_tuple<tuple<Us...> const&&, Ts...>;
+    }
+  constexpr tuple(tuple<Us...> const&& other) : base_type(std::move(other))
+  {
+  }
+
   template<std::size_t N, class Self>
   constexpr decltype(auto) get(this Self&& self) noexcept
   {
     return ((detail::forward_like_t<Self, tuple>)self).base_type::template get<N>();
   }
+
+private:
+  template<class... Us>
+  friend class tuple;
 };
 
 template<std::size_t N, class... Ts>

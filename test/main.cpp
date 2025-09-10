@@ -73,6 +73,16 @@ BOOST_AUTO_TEST_CASE(tuple)
     BOOST_TEST(get<0>(t) == 3);
     BOOST_TEST(get<1>(t) == 42.f);
   }
+
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int>, yk::alloy::tuple<float>&>);
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int>, yk::alloy::tuple<float> const&>);
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int>, yk::alloy::tuple<float>&&>);
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int>, yk::alloy::tuple<float> const&&>);
+
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int>&>);
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int> const&>);
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int>&&>);
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int> const&&>);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
