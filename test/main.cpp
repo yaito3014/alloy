@@ -36,27 +36,27 @@ BOOST_AUTO_TEST_SUITE(alloy_main)
 
 BOOST_AUTO_TEST_CASE(adapt)
 {
-  BOOST_STATIC_ASSERT(yk::alloy::adapted<S>);
-  BOOST_STATIC_ASSERT(yk::alloy::result_of::size_v<S> == 11);
+  static_assert(yk::alloy::adapted<S>);
+  static_assert(yk::alloy::result_of::size_v<S> == 11);
 
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<0, S>, int>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<1, S>, float>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<2, S>, double>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<3, S>, int&>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<4, S>, int const&>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<5, S>, int>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<6, S>, int const>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<7, S>, int&>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<8, S>, int const&>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<9, S>, int>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<10, S>, int const>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, S>, int>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, S>, float>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<2, S>, double>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<3, S>, int&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<4, S>, int const&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<5, S>, int>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<6, S>, int const>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<7, S>, int&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<8, S>, int const&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<9, S>, int>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<10, S>, int const>);
 }
 
 BOOST_AUTO_TEST_CASE(tuple)
 {
   using Tuple = yk::alloy::tuple<int, float>;
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple>, int>);
-  BOOST_STATIC_ASSERT(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple>, float>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple>, int>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple>, float>);
 
   {
     Tuple t(42, 3.14f);
