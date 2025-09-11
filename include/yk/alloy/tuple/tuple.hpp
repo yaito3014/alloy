@@ -1,7 +1,13 @@
 #ifndef YK_ALLOY_TUPLE_TUPLE_HPP
 #define YK_ALLOY_TUPLE_TUPLE_HPP
 
-#include "yk/alloy/tuple/detail/tuple_impl.hpp"
+#if YK_ALLOY_TUPLE_GENERATE
+#  include "yk/alloy/tuple/detail/tuple_impl.hpp"
+#else
+#  include "yk/alloy/tuple/detail/generated/tuple_impl_32.hpp"
+#endif
+
+#include "yk/alloy/tuple/value_initialize.hpp"
 
 #include "yk/alloy/detail/forward_like_t.hpp"
 
@@ -54,18 +60,20 @@ concept tuple_one_element_not_constructible_from_tuple =
 }  // namespace detail
 
 template<class... Ts>
-class tuple : private detail::tuple_impl<Ts...> {
+class tuple : public detail::tuple_impl<Ts...> {
 private:
   static_assert(!std::disjunction_v<std::is_reference<Ts>...>, "reference type is not allowed to instantiate alloy::tuple");
   using base_type = detail::tuple_impl<Ts...>;
 
 public:
-  constexpr explicit tuple(default_initialize_t) : base_type(default_initialize) {}
-
   // TODO: add explicit specifier
   constexpr tuple()
     requires std::conjunction_v<std::is_default_constructible<Ts>...>
-      : base_type()
+  = default;
+
+  constexpr explicit tuple(value_initialize_t)
+    requires std::conjunction_v<std::is_default_constructible<Ts>...>
+      : base_type(value_initialize)
   {
   }
 

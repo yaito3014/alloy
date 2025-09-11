@@ -62,6 +62,8 @@ BOOST_AUTO_TEST_CASE(tuple)
 
   {
     Tuple t(42, 3.14f);
+    BOOST_TEST(t._0 == 42);
+    BOOST_TEST(t._1 == 3.14f);
     BOOST_TEST(t.get<0>() == 42);
     BOOST_TEST(t.get<1>() == 3.14f);
     BOOST_TEST(get<0>(t) == 42);
@@ -70,6 +72,8 @@ BOOST_AUTO_TEST_CASE(tuple)
 
   {
     Tuple t(3.14f, 42);
+    BOOST_TEST(t._0 == 3);
+    BOOST_TEST(t._1 == 42.f);
     BOOST_TEST(t.get<0>() == 3);
     BOOST_TEST(t.get<1>() == 42.f);
     BOOST_TEST(get<0>(t) == 3);
