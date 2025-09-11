@@ -1,5 +1,5 @@
-#ifndef YK_ALLOY_ADAPT_STD_TUPLE_HPP
-#define YK_ALLOY_ADAPT_STD_TUPLE_HPP
+#ifndef YK_ALLOY_ADAPT_ADAPT_STD_TUPLE_HPP
+#define YK_ALLOY_ADAPT_ADAPT_STD_TUPLE_HPP
 
 #include "yk/alloy/adaptor.hpp"
 #include "yk/alloy/non_type_list.hpp"
@@ -33,4 +33,4 @@ struct adaptor<std::tuple<Ts...>> {
 
 }  // namespace yk::alloy
 
-#endif  // YK_ALLOY_ADAPT_STD_TUPLE_HPP
+#endif  // YK_ALLOY_ADAPT_ADAPT_STD_TUPLE_HPP

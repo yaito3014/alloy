@@ -2,7 +2,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <yk/alloy.hpp>
-#include <yk/alloy/adapt_std_tuple.hpp>
 
 #include <type_traits>
 
