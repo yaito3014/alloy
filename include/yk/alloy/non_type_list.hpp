@@ -42,7 +42,7 @@ struct non_type_list {
 template<class IntegerSeq>
 struct integer_sequence_to_non_type_list;
 
-template<template<class, auto...> class TIntegerSeq, class T, T... Vs>
+template<template<class T, T...> class TIntegerSeq, class T, T... Vs>
 struct integer_sequence_to_non_type_list<TIntegerSeq<T, Vs...>> {
   using type = non_type_list<Vs...>;
 };
