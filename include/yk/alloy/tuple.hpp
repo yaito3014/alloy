@@ -2,6 +2,7 @@
 #define YK_ALLOY_TUPLE_HPP
 
 #include "yk/alloy/adaptor.hpp"
+#include "yk/alloy/detail/forward_like_t.hpp"
 #include "yk/alloy/detail/no_unique_address.hpp"
 #include "yk/alloy/get.hpp"
 #include "yk/alloy/non_type_list.hpp"
@@ -21,25 +22,6 @@ struct default_initialize_t {};
 inline constexpr default_initialize_t default_initialize{};
 
 namespace detail {
-
-template<class From, class To>
-struct override_ref {
-  using type = std::conditional_t<std::is_rvalue_reference_v<From>, To&&, To&>;
-};
-
-template<class From, class To>
-using override_ref_t = typename override_ref<From, To>::type;
-
-template<class From, class To>
-struct copy_const {
-  using type = std::conditional_t<std::is_const_v<From>, To const, To>;
-};
-
-template<class From, class To>
-using copy_const_t = typename copy_const<From, To>::type;
-
-template<class From, class To>
-using forward_like_t = override_ref_t<From&&, copy_const_t<std::remove_reference_t<From>, std::remove_reference_t<To>>>;
 
 template<class Tuple, class... Us>
 struct tuple_disambiguating_constraint : std::true_type {};
