@@ -1,5 +1,5 @@
-#ifndef YK_ALLOY_TUPLE_TUPLE_IMPL_HPP
-#define YK_ALLOY_TUPLE_TUPLE_IMPL_HPP
+#ifndef YK_ALLOY_TUPLE_DETAIL_TUPLE_IMPL_HPP
+#define YK_ALLOY_TUPLE_DETAIL_TUPLE_IMPL_HPP
 
 #include "yk/alloy/tuple/default_initialize.hpp"
 
@@ -76,4 +76,4 @@ private:
 
 }  // namespace yk::alloy
 
-#endif  // YK_ALLOY_TUPLE_TUPLE_IMPL_HPP
+#endif  // YK_ALLOY_TUPLE_DETAIL_TUPLE_IMPL_HPP
