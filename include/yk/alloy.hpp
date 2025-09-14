@@ -5,6 +5,7 @@
 #include "yk/alloy/get.hpp"
 #include "yk/alloy/non_type_list.hpp"
 #include "yk/alloy/size.hpp"
+#include "yk/alloy/traits.hpp"
 #include "yk/alloy/tuple.hpp"
 
 #endif  // YK_ALLOY_HPP
