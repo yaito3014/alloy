@@ -13,6 +13,8 @@
 
 #include <utility>
 
+#include <cstddef>
+
 #ifndef YK_ALLOY_TUPLE_LIMIT
 #  define YK_ALLOY_TUPLE_LIMIT 32
 #endif

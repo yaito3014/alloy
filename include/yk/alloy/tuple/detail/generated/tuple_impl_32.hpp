@@ -6,6 +6,8 @@
 #include "yk/alloy/detail/forward_like_t.hpp"
 #include "yk/alloy/detail/no_unique_address.hpp"
 
+#include <cstddef>
+
 namespace yk::alloy {
 
 namespace detail {

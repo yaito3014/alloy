@@ -7,6 +7,8 @@
 #include <boost/fusion/container/vector.hpp>
 #include <boost/fusion/sequence/intrinsic/at_c.hpp>
 
+#include <cstddef>
+
 namespace yk::alloy {
 
 namespace detail {
