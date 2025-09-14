@@ -38,7 +38,7 @@ BOOST_AUTO_TEST_SUITE(alloy_main)
 
 BOOST_AUTO_TEST_CASE(adapt)
 {
-  static_assert(yk::alloy::adapted<S>);
+  static_assert(yk::alloy::tuple_like<S>);
   static_assert(yk::alloy::result_of::size_v<S> == 11);
 
   static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, S>, int&&>);
@@ -95,7 +95,7 @@ BOOST_AUTO_TEST_CASE(boost_fusion_vector)
 {
   using Vector = boost::fusion::vector<int, float>;
 
-  static_assert(yk::alloy::adapted<Vector>);
+  static_assert(yk::alloy::tuple_like<Vector>);
   static_assert(yk::alloy::result_of::size_v<Vector> == 2);
 
   static_assert(std::is_same_v<typename boost::fusion::result_of::at_c<Vector, 0>::type, int&>);
