@@ -5,6 +5,7 @@
 
 #include "yk/alloy/detail/forward_like_t.hpp"
 #include "yk/alloy/detail/no_unique_address.hpp"
+#include "yk/alloy/detail/pack_indexing.hpp"
 
 #include <boost/preprocessor/cat.hpp>
 #include <boost/preprocessor/comma_if.hpp>
@@ -18,6 +19,7 @@
 #ifndef YK_ALLOY_TUPLE_LIMIT
 #  define YK_ALLOY_TUPLE_LIMIT 32
 #endif
+
 
 namespace yk::alloy {
 
@@ -71,50 +73,52 @@ public:
 
 #define YK_ALLOY_TUPLE_DETAIL_GET(z, i, member_name) BOOST_PP_IF(i, else, ) if constexpr (N == i) return ((forward_like_t<Self, tuple_impl>)self).BOOST_PP_CAT(member_name, i);
 
-#define YK_ALLOY_TUPLE_DETAIL_DEFINE_TUPLE_IMPL(z, n, name_tuple)                                                                                                   \
-  template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_1, name_tuple))>                 \
-  class tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_1, name_tuple))> {                  \
-  public:                                                                                                                                                           \
-    BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_DECLARE_MEMBER, name_tuple)                                                                                            \
-    constexpr explicit tuple_impl() = default;                                                                                                                      \
-    constexpr explicit tuple_impl(value_initialize_t)                                                                                                               \
-        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_VALUE_INITIALIZE_MEMBERS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                    \
-    {                                                                                                                                                               \
-    }                                                                                                                                                               \
-    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>               \
-    constexpr explicit tuple_impl(BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_FORWARDING_CONSTRUCTOR_PARAMS, name_tuple))                                              \
-        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_FORWARDING_INITIALIZE_MEMBERS, name_tuple)                                                                       \
-    {                                                                                                                                                               \
-    }                                                                                                                                                               \
-    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>               \
-    constexpr explicit tuple_impl(                                                                                                                                  \
-        tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>& another)          \
-        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ANOTHER_INITIALIZE_MEMBERS_LVALUE_REFERENCE, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple)) \
-    {                                                                                                                                                               \
-    }                                                                                                                                                               \
-    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>               \
-    constexpr explicit tuple_impl(                                                                                                                                  \
-        tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))> const& another)    \
-        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ANOTHER_INITIALIZE_MEMBERS_LVALUE_REFERENCE, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple)) \
-    {                                                                                                                                                               \
-    }                                                                                                                                                               \
-    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>               \
-    constexpr explicit tuple_impl(                                                                                                                                  \
-        tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>&& another)         \
-        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ANOTHER_INITIALIZE_MEMBERS_RVALUE_REFERENCE, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple)) \
-    {                                                                                                                                                               \
-    }                                                                                                                                                               \
-    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>               \
-    constexpr explicit tuple_impl(                                                                                                                                  \
-        tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))> const&& another)   \
-        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ANOTHER_INITIALIZE_MEMBERS_RVALUE_REFERENCE, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple)) \
-    {                                                                                                                                                               \
-    }                                                                                                                                                               \
-    template<std::size_t N, class Self>                                                                                                                             \
-    constexpr decltype(auto) get(this Self&& self) noexcept                                                                                                         \
-    {                                                                                                                                                               \
-      BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_GET, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                                             \
-    }                                                                                                                                                               \
+#define YK_ALLOY_TUPLE_DETAIL_DEFINE_TUPLE_IMPL(z, n, name_tuple)                                                                                                                  \
+  template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_1, name_tuple))>                                \
+  class tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_1, name_tuple))> {                                 \
+  public:                                                                                                                                                                          \
+    BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_DECLARE_MEMBER, name_tuple)                                                                                                           \
+    constexpr explicit tuple_impl() = default;                                                                                                                                     \
+    constexpr explicit tuple_impl(value_initialize_t)                                                                                                                              \
+        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_VALUE_INITIALIZE_MEMBERS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                                   \
+    {                                                                                                                                                                              \
+    }                                                                                                                                                                              \
+    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>                              \
+    constexpr explicit tuple_impl(BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_FORWARDING_CONSTRUCTOR_PARAMS, name_tuple))                                                             \
+        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_FORWARDING_INITIALIZE_MEMBERS, name_tuple)                                                                                      \
+    {                                                                                                                                                                              \
+    }                                                                                                                                                                              \
+    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>                              \
+    constexpr explicit tuple_impl(                                                                                                                                                 \
+        tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>& another)                         \
+        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ANOTHER_INITIALIZE_MEMBERS_LVALUE_REFERENCE, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                \
+    {                                                                                                                                                                              \
+    }                                                                                                                                                                              \
+    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>                              \
+    constexpr explicit tuple_impl(                                                                                                                                                 \
+        tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))> const& another)                   \
+        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ANOTHER_INITIALIZE_MEMBERS_LVALUE_REFERENCE, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                \
+    {                                                                                                                                                                              \
+    }                                                                                                                                                                              \
+    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>                              \
+    constexpr explicit tuple_impl(                                                                                                                                                 \
+        tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>&& another)                        \
+        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ANOTHER_INITIALIZE_MEMBERS_RVALUE_REFERENCE, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                \
+    {                                                                                                                                                                              \
+    }                                                                                                                                                                              \
+    template<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAMS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))>                              \
+    constexpr explicit tuple_impl(                                                                                                                                                 \
+        tuple_impl<BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_2, name_tuple))> const&& another)                  \
+        : BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ANOTHER_INITIALIZE_MEMBERS_RVALUE_REFERENCE, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                \
+    {                                                                                                                                                                              \
+    }                                                                                                                                                                              \
+    template<std::size_t N, class Self>                                                                                                                                            \
+    constexpr forward_like_t<Self,                                                                                                                                                 \
+                             ttp_pack_indexing_t<N, BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_ARGS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_1, name_tuple))>> \
+    get(this Self&& self) noexcept                                                                                                                                                 \
+    {                                                                                                                                                                              \
+      BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_GET, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                                                            \
+    }                                                                                                                                                                              \
   };
 
 BOOST_PP_REPEAT_FROM_TO(1, YK_ALLOY_TUPLE_LIMIT, YK_ALLOY_TUPLE_DETAIL_DEFINE_TUPLE_IMPL, YK_ALLOY_TUPLE_DETAIL_NAME_TUPLE)

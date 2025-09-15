@@ -1,6 +1,7 @@
 #ifndef YK_ALLOY_TUPLE_TUPLE_HPP
 #define YK_ALLOY_TUPLE_TUPLE_HPP
 
+#define YK_ALLOY_TUPLE_GENERATE 1
 #if YK_ALLOY_TUPLE_GENERATE
 #  include "yk/alloy/tuple/detail/tuple_impl.hpp"
 #else
@@ -62,7 +63,7 @@ concept tuple_one_element_not_constructible_from_tuple =
 template<class... Ts>
 class tuple : public detail::tuple_impl<Ts...> {
 private:
-  static_assert(!std::disjunction_v<std::is_reference<Ts>...>, "reference type is not allowed to instantiate alloy::tuple");
+  static_assert(!std::disjunction_v<std::is_rvalue_reference<Ts>...>, "rvalue reference type is not allowed to instantiate alloy::tuple");
   using base_type = detail::tuple_impl<Ts...>;
 
 public:

@@ -28,7 +28,7 @@ using get_t = typename get<N, T>::type;
 
 template<std::size_t N, class T>
   requires tuple_like<std::remove_cvref_t<T>>
-constexpr auto&& get(T&& x) noexcept
+constexpr result_of::get_t<N, T> get(T&& x) noexcept
 {
   return std::invoke(adaptor<std::remove_cvref_t<T>>::getters::template nth_v<N>, std::forward<T>(x));
 }

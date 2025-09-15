@@ -5,6 +5,7 @@
 
 #include "yk/alloy/detail/forward_like_t.hpp"
 #include "yk/alloy/detail/no_unique_address.hpp"
+#include "yk/alloy/detail/pack_indexing.hpp"
 
 #include <cstddef>
 
@@ -48,7 +49,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0) return ((forward_like_t<Self, tuple_impl>)self)._0;
   }
@@ -81,7 +82,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -120,7 +121,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -168,7 +169,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -222,7 +223,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -281,7 +282,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -353,7 +354,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -431,7 +432,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -515,7 +516,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -605,7 +606,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -721,7 +722,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -845,7 +846,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -977,7 +978,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1117,7 +1118,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1265,7 +1266,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1422,7 +1423,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1593,7 +1594,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1772,7 +1773,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1959,7 +1960,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -2157,7 +2158,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -2363,7 +2364,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>> get(
+      this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -2577,7 +2579,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>> get(
+      this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -2799,7 +2802,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>> get(
+      this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -3029,7 +3033,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>> get(
+      this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -3267,7 +3272,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>> get(
+      this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -3513,7 +3519,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>>
+  get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -3795,7 +3802,9 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self,
+                           ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>>
+  get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -4088,7 +4097,9 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<Self,
+                           ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>>
+  get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -4391,7 +4402,9 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<
+      Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>>
+  get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -4703,7 +4716,9 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<
+      Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>>
+  get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -5024,7 +5039,9 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr decltype(auto) get(this Self&& self) noexcept
+  constexpr forward_like_t<
+      Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>>
+  get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -5090,7 +5107,6 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._30;
   }
 };
-
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
          class T16, class T17, class T18, class T19, class T20, class T21, class T22, class T23, class T24, class T25, class T26, class T27, class T28, class T29, class T30,
          class T31, class... Ts>
@@ -5166,7 +5182,6 @@ public:
         rest(value_initialize)
   {
   }
-
   template<class U0, class U1, class U2, class U3, class U4, class U5, class U6, class U7, class U8, class U9, class U10, class U11, class U12, class U13, class U14, class U15,
            class U16, class U17, class U18, class U19, class U20, class U21, class U22, class U23, class U24, class U25, class U26, class U27, class U28, class U29, class U30,
            class U31, class... Us>
@@ -5440,7 +5455,6 @@ public:
   }
 };
 }  // namespace detail
-
 }  // namespace yk::alloy
 
 #endif  // YK_ALLOY_TUPLE_DETAIL_TUPLE_IMPL_32_HPP
