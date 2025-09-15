@@ -13,7 +13,7 @@ namespace result_of {
 
 template<class T>
   requires tuple_like<std::remove_cvref_t<T>>
-struct size : std::integral_constant<std::size_t, adaptor<T>::getters::size> {};
+struct size : std::integral_constant<std::size_t, adaptor<std::remove_cvref_t<T>>::getters::size> {};
 
 template<class T>
   requires tuple_like<std::remove_cvref_t<T>>
