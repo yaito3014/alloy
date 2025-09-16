@@ -71,6 +71,8 @@ public:
   YK_ALLOY_DETAIL_NO_UNIQUE_ADDRESS BOOST_PP_CAT(BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_TEMPLATE_PARAM_NAME_1, name_tuple), i) \
       BOOST_PP_CAT(BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple), i);
 
+#define YK_ALLOY_TUPLE_DETAIL_SWAP_MEMBERS(z, i, member_name) swap(BOOST_PP_CAT(member_name, i), other.BOOST_PP_CAT(member_name, i));
+
 #define YK_ALLOY_TUPLE_DETAIL_GET(z, i, member_name) BOOST_PP_IF(i, else, ) if constexpr (N == i) return ((forward_like_t<Self, tuple_impl>)self).BOOST_PP_CAT(member_name, i);
 
 #define YK_ALLOY_TUPLE_DETAIL_DEFINE_TUPLE_IMPL(z, n, name_tuple)                                                                                                                  \
@@ -118,6 +120,11 @@ public:
     get(this Self&& self) noexcept                                                                                                                                                 \
     {                                                                                                                                                                              \
       BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_GET, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, name_tuple))                                                            \
+    }                                                                                                                                                                              \
+    void swap(tuple_impl& other)                                                                                                                                                   \
+    {                                                                                                                                                                              \
+      using std::swap;                                                                                                                                                             \
+      BOOST_PP_REPEAT(n, YK_ALLOY_TUPLE_DETAIL_SWAP_MEMBERS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, YK_ALLOY_TUPLE_DETAIL_NAME_TUPLE))                             \
     }                                                                                                                                                                              \
   };
 
@@ -197,6 +204,12 @@ public:
     BOOST_PP_REPEAT(YK_ALLOY_TUPLE_LIMIT, YK_ALLOY_TUPLE_DETAIL_GET, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, YK_ALLOY_TUPLE_DETAIL_NAME_TUPLE))
     else return ((forward_like_t<Self, tuple_impl>)self).rest.template get<N - YK_ALLOY_TUPLE_LIMIT>();
   }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    BOOST_PP_REPEAT(YK_ALLOY_TUPLE_LIMIT, YK_ALLOY_TUPLE_DETAIL_SWAP_MEMBERS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, YK_ALLOY_TUPLE_DETAIL_NAME_TUPLE))
+    rest.swap(other.rest);
+  }
 };
 
 #undef YK_ALLOY_TUPLE_DETAIL_ARGS
@@ -215,6 +228,7 @@ public:
 #undef YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME
 #undef YK_ALLOY_TUPLE_DETAIL_FUNCTION_PARAM_NAME_1
 #undef YK_ALLOY_TUPLE_DETAIL_FUNCTION_PARAM_NAME_2
+#undef YK_ALLOY_TUPLE_DETAIL_SWAP_MEMBERS
 
 }  // namespace detail
 

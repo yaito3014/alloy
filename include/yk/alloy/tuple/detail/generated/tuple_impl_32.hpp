@@ -53,6 +53,11 @@ public:
   {
     if constexpr (N == 0) return ((forward_like_t<Self, tuple_impl>)self)._0;
   }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+  }
 };
 template<class T0, class T1>
 class tuple_impl<T0, T1> {
@@ -88,6 +93,12 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._0;
     else if constexpr (N == 1)
       return ((forward_like_t<Self, tuple_impl>)self)._1;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
   }
 };
 template<class T0, class T1, class T2>
@@ -129,6 +140,13 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._1;
     else if constexpr (N == 2)
       return ((forward_like_t<Self, tuple_impl>)self)._2;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
   }
 };
 template<class T0, class T1, class T2, class T3>
@@ -179,6 +197,14 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._2;
     else if constexpr (N == 3)
       return ((forward_like_t<Self, tuple_impl>)self)._3;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4>
@@ -235,6 +261,15 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._3;
     else if constexpr (N == 4)
       return ((forward_like_t<Self, tuple_impl>)self)._4;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5>
@@ -296,6 +331,16 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._4;
     else if constexpr (N == 5)
       return ((forward_like_t<Self, tuple_impl>)self)._5;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6>
@@ -370,6 +415,17 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._5;
     else if constexpr (N == 6)
       return ((forward_like_t<Self, tuple_impl>)self)._6;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7>
@@ -450,6 +506,18 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._6;
     else if constexpr (N == 7)
       return ((forward_like_t<Self, tuple_impl>)self)._7;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8>
@@ -536,6 +604,19 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._7;
     else if constexpr (N == 8)
       return ((forward_like_t<Self, tuple_impl>)self)._8;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9>
@@ -628,6 +709,20 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._8;
     else if constexpr (N == 9)
       return ((forward_like_t<Self, tuple_impl>)self)._9;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10>
@@ -746,6 +841,21 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._9;
     else if constexpr (N == 10)
       return ((forward_like_t<Self, tuple_impl>)self)._10;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11>
@@ -872,6 +982,22 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._10;
     else if constexpr (N == 11)
       return ((forward_like_t<Self, tuple_impl>)self)._11;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12>
@@ -1006,6 +1132,23 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._11;
     else if constexpr (N == 12)
       return ((forward_like_t<Self, tuple_impl>)self)._12;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13>
@@ -1148,6 +1291,24 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._12;
     else if constexpr (N == 13)
       return ((forward_like_t<Self, tuple_impl>)self)._13;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14>
@@ -1298,6 +1459,25 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._13;
     else if constexpr (N == 14)
       return ((forward_like_t<Self, tuple_impl>)self)._14;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15>
@@ -1457,6 +1637,26 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._14;
     else if constexpr (N == 15)
       return ((forward_like_t<Self, tuple_impl>)self)._15;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -1630,6 +1830,27 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._15;
     else if constexpr (N == 16)
       return ((forward_like_t<Self, tuple_impl>)self)._16;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -1811,6 +2032,28 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._16;
     else if constexpr (N == 17)
       return ((forward_like_t<Self, tuple_impl>)self)._17;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -2000,6 +2243,29 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._17;
     else if constexpr (N == 18)
       return ((forward_like_t<Self, tuple_impl>)self)._18;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -2200,6 +2466,30 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._18;
     else if constexpr (N == 19)
       return ((forward_like_t<Self, tuple_impl>)self)._19;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -2409,6 +2699,31 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._19;
     else if constexpr (N == 20)
       return ((forward_like_t<Self, tuple_impl>)self)._20;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -2626,6 +2941,32 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._20;
     else if constexpr (N == 21)
       return ((forward_like_t<Self, tuple_impl>)self)._21;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -2851,6 +3192,33 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._21;
     else if constexpr (N == 22)
       return ((forward_like_t<Self, tuple_impl>)self)._22;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -3084,6 +3452,34 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._22;
     else if constexpr (N == 23)
       return ((forward_like_t<Self, tuple_impl>)self)._23;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -3325,6 +3721,35 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._23;
     else if constexpr (N == 24)
       return ((forward_like_t<Self, tuple_impl>)self)._24;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
+    swap(_24, other._24);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -3574,6 +3999,36 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._24;
     else if constexpr (N == 25)
       return ((forward_like_t<Self, tuple_impl>)self)._25;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
+    swap(_24, other._24);
+    swap(_25, other._25);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -3860,6 +4315,37 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._25;
     else if constexpr (N == 26)
       return ((forward_like_t<Self, tuple_impl>)self)._26;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
+    swap(_24, other._24);
+    swap(_25, other._25);
+    swap(_26, other._26);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -4157,6 +4643,38 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._26;
     else if constexpr (N == 27)
       return ((forward_like_t<Self, tuple_impl>)self)._27;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
+    swap(_24, other._24);
+    swap(_25, other._25);
+    swap(_26, other._26);
+    swap(_27, other._27);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -4464,6 +4982,39 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._27;
     else if constexpr (N == 28)
       return ((forward_like_t<Self, tuple_impl>)self)._28;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
+    swap(_24, other._24);
+    swap(_25, other._25);
+    swap(_26, other._26);
+    swap(_27, other._27);
+    swap(_28, other._28);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -4780,6 +5331,40 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._28;
     else if constexpr (N == 29)
       return ((forward_like_t<Self, tuple_impl>)self)._29;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
+    swap(_24, other._24);
+    swap(_25, other._25);
+    swap(_26, other._26);
+    swap(_27, other._27);
+    swap(_28, other._28);
+    swap(_29, other._29);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -5105,6 +5690,41 @@ public:
       return ((forward_like_t<Self, tuple_impl>)self)._29;
     else if constexpr (N == 30)
       return ((forward_like_t<Self, tuple_impl>)self)._30;
+  }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
+    swap(_24, other._24);
+    swap(_25, other._25);
+    swap(_26, other._26);
+    swap(_27, other._27);
+    swap(_28, other._28);
+    swap(_29, other._29);
+    swap(_30, other._30);
   }
 };
 template<class T0, class T1, class T2, class T3, class T4, class T5, class T6, class T7, class T8, class T9, class T10, class T11, class T12, class T13, class T14, class T15,
@@ -5453,8 +6073,45 @@ public:
     else
       return ((forward_like_t<Self, tuple_impl>)self).rest.template get<N - 32>();
   }
+  void swap(tuple_impl& other)
+  {
+    using std::swap;
+    swap(_0, other._0);
+    swap(_1, other._1);
+    swap(_2, other._2);
+    swap(_3, other._3);
+    swap(_4, other._4);
+    swap(_5, other._5);
+    swap(_6, other._6);
+    swap(_7, other._7);
+    swap(_8, other._8);
+    swap(_9, other._9);
+    swap(_10, other._10);
+    swap(_11, other._11);
+    swap(_12, other._12);
+    swap(_13, other._13);
+    swap(_14, other._14);
+    swap(_15, other._15);
+    swap(_16, other._16);
+    swap(_17, other._17);
+    swap(_18, other._18);
+    swap(_19, other._19);
+    swap(_20, other._20);
+    swap(_21, other._21);
+    swap(_22, other._22);
+    swap(_23, other._23);
+    swap(_24, other._24);
+    swap(_25, other._25);
+    swap(_26, other._26);
+    swap(_27, other._27);
+    swap(_28, other._28);
+    swap(_29, other._29);
+    swap(_30, other._30);
+    swap(_31, other._31);
+    rest.swap(other.rest);
+  }
 };
 }  // namespace detail
 }  // namespace yk::alloy
 
-#endif  // YK_ALLOY_TUPLE_DETAIL_TUPLE_IMPL_32_HPP
+#endif // YK_ALLOY_TUPLE_DETAIL_TUPLE_IMPL_32_HPP

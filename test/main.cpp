@@ -81,6 +81,10 @@ BOOST_AUTO_TEST_CASE(tuple)
     BOOST_TEST(get<1>(t) == 42.f);
   }
 
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, int, float>);
+
+  static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, float, int>);
+
   static_assert(std::is_constructible_v<yk::alloy::tuple<int>, yk::alloy::tuple<float>&>);
   static_assert(std::is_constructible_v<yk::alloy::tuple<int>, yk::alloy::tuple<float> const&>);
   static_assert(std::is_constructible_v<yk::alloy::tuple<int>, yk::alloy::tuple<float>&&>);
@@ -90,6 +94,16 @@ BOOST_AUTO_TEST_CASE(tuple)
   static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int> const&>);
   static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int>&&>);
   static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int> const&&>);
+
+  {
+    yk::alloy::tuple<int, float> a(12, 3.45f);
+    yk::alloy::tuple<int, float> b(67, 8.90f);
+    a.swap(b);
+    BOOST_TEST(a._0 == 67);
+    BOOST_TEST(a._1 == 8.90f);
+    BOOST_TEST(b._0 == 12);
+    BOOST_TEST(b._1 == 3.45f);
+  }
 }
 
 BOOST_AUTO_TEST_CASE(std_pair)

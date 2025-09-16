@@ -1,7 +1,6 @@
 #ifndef YK_ALLOY_TUPLE_TUPLE_HPP
 #define YK_ALLOY_TUPLE_TUPLE_HPP
 
-#define YK_ALLOY_TUPLE_GENERATE 1
 #if YK_ALLOY_TUPLE_GENERATE
 #  include "yk/alloy/tuple/detail/tuple_impl.hpp"
 #else
