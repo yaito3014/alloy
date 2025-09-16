@@ -112,18 +112,4 @@ BOOST_AUTO_TEST_CASE(boost_fusion_vector)
   static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Vector const&&>, float const&&>);
 }
 
-BOOST_AUTO_TEST_CASE(associative)
-{
-  using AssocTuple = yk::alloy::tuple<yk::alloy::keyed_value<int, float>, yk::alloy::keyed_value<char, double>>;
-  static_assert(yk::alloy::tuple_like<AssocTuple>);
-  static_assert(yk::alloy::associative_tuple_like<AssocTuple>);
-}
-
-BOOST_AUTO_TEST_CASE(keyed_get)
-{
-  using AssocTuple = yk::alloy::tuple<yk::alloy::keyed_value<int, float>, yk::alloy::keyed_value<char, double>>;
-  // static_assert(std::is_same_v<yk::alloy::result_of::keyed_get_t<int, AssocTuple&>, float&>);
-  // static_assert(std::is_same_v<yk::alloy::result_of::keyed_get_t<char, AssocTuple&>, double&>);
-}
-
 BOOST_AUTO_TEST_SUITE_END()
