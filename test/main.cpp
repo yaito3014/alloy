@@ -5,7 +5,9 @@
 
 #include <boost/fusion/container/vector.hpp>
 
+#include <tuple>
 #include <type_traits>
+#include <utility>
 
 struct S {
   int a;
@@ -88,6 +90,53 @@ BOOST_AUTO_TEST_CASE(tuple)
   static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int> const&>);
   static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int>&&>);
   static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int> const&&>);
+}
+
+BOOST_AUTO_TEST_CASE(std_pair)
+{
+  using Pair = std::pair<int, float>;
+  static_assert(yk::alloy::tuple_like<Pair>);
+  static_assert( yk::alloy::result_of::size_v<Pair> == 2 );
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<0, Pair>, int&&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<0, Pair const>, int const&&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<0, Pair&>, int&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<0, Pair const&>, int const&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<0, Pair&&>, int&&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<0, Pair const&&>, int const&&>);
+  
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<1, Pair>, float&&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<1, Pair const>, float const&&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<1, Pair&>, float&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<1, Pair const&>, float const&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<1, Pair&&>, float&&>);
+  static_assert( std::is_same_v<yk::alloy::result_of::get_t<1, Pair const&&>, float const&&>);
+}
+
+BOOST_AUTO_TEST_CASE(std_tuple)
+{
+  using Tuple = std::tuple<int, float, double>;
+  static_assert(yk::alloy::tuple_like<Tuple>);
+  static_assert(yk::alloy::result_of::size_v<Tuple> == 3);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple>, int&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple const>, int const&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple&>, int&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple const&>, int const&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple&&>, int&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Tuple const&&>, int const&&>);
+  
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple>, float&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple const>, float const&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple&>, float&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple const&>, float const&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple&&>, float&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Tuple const&&>, float const&&>);
+  
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<2, Tuple>, double&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<2, Tuple const>, double const&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<2, Tuple&>, double&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<2, Tuple const&>, double const&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<2, Tuple&&>, double&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<2, Tuple const&&>, double const&&>);
 }
 
 BOOST_AUTO_TEST_SUITE_END()

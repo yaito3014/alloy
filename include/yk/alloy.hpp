@@ -1,6 +1,9 @@
 #ifndef YK_ALLOY_HPP
 #define YK_ALLOY_HPP
 
+#include "yk/alloy/adapt/adapt_std_pair.hpp"
+#include "yk/alloy/adapt/adapt_std_tuple.hpp"
+
 #include "yk/alloy/adaptor.hpp"
 #include "yk/alloy/get.hpp"
 #include "yk/alloy/non_type_list.hpp"
