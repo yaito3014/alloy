@@ -2,7 +2,6 @@
 #include <boost/test/unit_test.hpp>
 
 #include <yk/alloy.hpp>
-#include <yk/alloy/adapt/adapt_boost_fusion_vector.hpp>
 
 #include <boost/fusion/container/vector.hpp>
 
