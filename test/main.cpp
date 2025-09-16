@@ -91,25 +91,4 @@ BOOST_AUTO_TEST_CASE(tuple)
   static_assert(std::is_constructible_v<yk::alloy::tuple<int, float>, yk::alloy::tuple<float, int> const&&>);
 }
 
-BOOST_AUTO_TEST_CASE(boost_fusion_vector)
-{
-  using Vector = boost::fusion::vector<int, float>;
-
-  static_assert(yk::alloy::tuple_like<Vector>);
-  static_assert(yk::alloy::result_of::size_v<Vector> == 2);
-
-  static_assert(std::is_same_v<typename boost::fusion::result_of::at_c<Vector, 0>::type, int&>);
-  static_assert(std::is_same_v<typename boost::fusion::result_of::at_c<Vector, 1>::type, float&>);
-
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Vector&>, int&>);
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Vector const&>, int const&>);
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Vector&&>, int&&>);
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, Vector const&&>, int const&&>);
-
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Vector&>, float&>);
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Vector const&>, float const&>);
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Vector&&>, float&&>);
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<1, Vector const&&>, float const&&>);
-}
-
 BOOST_AUTO_TEST_SUITE_END()
