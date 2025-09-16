@@ -156,6 +156,11 @@ public:
     return ((detail::forward_like_t<Self, tuple>)self).base_type::template get<N>();
   }
 
+  constexpr void swap(tuple& other)
+  {
+    base_type::swap(other);
+  }
+
 private:
   template<class... Us>
   friend class tuple;

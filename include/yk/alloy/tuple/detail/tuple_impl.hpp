@@ -204,7 +204,7 @@ public:
     BOOST_PP_REPEAT(YK_ALLOY_TUPLE_LIMIT, YK_ALLOY_TUPLE_DETAIL_GET, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, YK_ALLOY_TUPLE_DETAIL_NAME_TUPLE))
     else return ((forward_like_t<Self, tuple_impl>)self).rest.template get<N - YK_ALLOY_TUPLE_LIMIT>();
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     BOOST_PP_REPEAT(YK_ALLOY_TUPLE_LIMIT, YK_ALLOY_TUPLE_DETAIL_SWAP_MEMBERS, BOOST_PP_TUPLE_ELEM(YK_ALLOY_TUPLE_DETAIL_MEMBER_NAME, YK_ALLOY_TUPLE_DETAIL_NAME_TUPLE))

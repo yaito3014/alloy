@@ -53,7 +53,7 @@ public:
   {
     if constexpr (N == 0) return ((forward_like_t<Self, tuple_impl>)self)._0;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -94,7 +94,7 @@ public:
     else if constexpr (N == 1)
       return ((forward_like_t<Self, tuple_impl>)self)._1;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -141,7 +141,7 @@ public:
     else if constexpr (N == 2)
       return ((forward_like_t<Self, tuple_impl>)self)._2;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -198,7 +198,7 @@ public:
     else if constexpr (N == 3)
       return ((forward_like_t<Self, tuple_impl>)self)._3;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -262,7 +262,7 @@ public:
     else if constexpr (N == 4)
       return ((forward_like_t<Self, tuple_impl>)self)._4;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -332,7 +332,7 @@ public:
     else if constexpr (N == 5)
       return ((forward_like_t<Self, tuple_impl>)self)._5;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -416,7 +416,7 @@ public:
     else if constexpr (N == 6)
       return ((forward_like_t<Self, tuple_impl>)self)._6;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -507,7 +507,7 @@ public:
     else if constexpr (N == 7)
       return ((forward_like_t<Self, tuple_impl>)self)._7;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -605,7 +605,7 @@ public:
     else if constexpr (N == 8)
       return ((forward_like_t<Self, tuple_impl>)self)._8;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -710,7 +710,7 @@ public:
     else if constexpr (N == 9)
       return ((forward_like_t<Self, tuple_impl>)self)._9;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -842,7 +842,7 @@ public:
     else if constexpr (N == 10)
       return ((forward_like_t<Self, tuple_impl>)self)._10;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -983,7 +983,7 @@ public:
     else if constexpr (N == 11)
       return ((forward_like_t<Self, tuple_impl>)self)._11;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1133,7 +1133,7 @@ public:
     else if constexpr (N == 12)
       return ((forward_like_t<Self, tuple_impl>)self)._12;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1292,7 +1292,7 @@ public:
     else if constexpr (N == 13)
       return ((forward_like_t<Self, tuple_impl>)self)._13;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1460,7 +1460,7 @@ public:
     else if constexpr (N == 14)
       return ((forward_like_t<Self, tuple_impl>)self)._14;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1638,7 +1638,7 @@ public:
     else if constexpr (N == 15)
       return ((forward_like_t<Self, tuple_impl>)self)._15;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1831,7 +1831,7 @@ public:
     else if constexpr (N == 16)
       return ((forward_like_t<Self, tuple_impl>)self)._16;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2033,7 +2033,7 @@ public:
     else if constexpr (N == 17)
       return ((forward_like_t<Self, tuple_impl>)self)._17;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2244,7 +2244,7 @@ public:
     else if constexpr (N == 18)
       return ((forward_like_t<Self, tuple_impl>)self)._18;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2467,7 +2467,7 @@ public:
     else if constexpr (N == 19)
       return ((forward_like_t<Self, tuple_impl>)self)._19;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2700,7 +2700,7 @@ public:
     else if constexpr (N == 20)
       return ((forward_like_t<Self, tuple_impl>)self)._20;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2942,7 +2942,7 @@ public:
     else if constexpr (N == 21)
       return ((forward_like_t<Self, tuple_impl>)self)._21;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -3193,7 +3193,7 @@ public:
     else if constexpr (N == 22)
       return ((forward_like_t<Self, tuple_impl>)self)._22;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -3453,7 +3453,7 @@ public:
     else if constexpr (N == 23)
       return ((forward_like_t<Self, tuple_impl>)self)._23;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -3722,7 +3722,7 @@ public:
     else if constexpr (N == 24)
       return ((forward_like_t<Self, tuple_impl>)self)._24;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -4000,7 +4000,7 @@ public:
     else if constexpr (N == 25)
       return ((forward_like_t<Self, tuple_impl>)self)._25;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -4316,7 +4316,7 @@ public:
     else if constexpr (N == 26)
       return ((forward_like_t<Self, tuple_impl>)self)._26;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -4644,7 +4644,7 @@ public:
     else if constexpr (N == 27)
       return ((forward_like_t<Self, tuple_impl>)self)._27;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -4983,7 +4983,7 @@ public:
     else if constexpr (N == 28)
       return ((forward_like_t<Self, tuple_impl>)self)._28;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -5332,7 +5332,7 @@ public:
     else if constexpr (N == 29)
       return ((forward_like_t<Self, tuple_impl>)self)._29;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -5691,7 +5691,7 @@ public:
     else if constexpr (N == 30)
       return ((forward_like_t<Self, tuple_impl>)self)._30;
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -6073,7 +6073,7 @@ public:
     else
       return ((forward_like_t<Self, tuple_impl>)self).rest.template get<N - 32>();
   }
-  void swap(tuple_impl& other)
+  constexpr void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
