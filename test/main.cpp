@@ -3,8 +3,6 @@
 
 #include <yk/alloy.hpp>
 
-#include <boost/fusion/container/vector.hpp>
-
 #include <tuple>
 #include <type_traits>
 #include <utility>
