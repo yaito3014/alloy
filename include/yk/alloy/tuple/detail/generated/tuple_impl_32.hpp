@@ -7,11 +7,37 @@
 #include "yk/alloy/detail/no_unique_address.hpp"
 #include "yk/alloy/detail/pack_indexing.hpp"
 
-#include <cstddef>
-
 namespace yk::alloy {
 
 namespace detail {
+
+template<class From, class To>
+struct combine_cvref {
+  static_assert(std::is_reference_v<From>);
+};
+
+template<class From, class To>
+struct combine_cvref<From&, To> {
+  using type = To&;
+};
+
+template<class From, class To>
+struct combine_cvref<From const&, To> {
+  using type = To const&;
+};
+
+template<class From, class To>
+struct combine_cvref<From&&, To> {
+  using type = To&&;
+};
+
+template<class From, class To>
+struct combine_cvref<From const&&, To> {
+  using type = To const&&;
+};
+
+template<class From, class To>
+using combine_cvref_t = typename combine_cvref<From, To>::type;
 
 template<class... Ts>
 class tuple_impl;
@@ -49,11 +75,11 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0) return ((forward_like_t<Self, tuple_impl>)self)._0;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -87,14 +113,14 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
     else if constexpr (N == 1)
       return ((forward_like_t<Self, tuple_impl>)self)._1;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -132,7 +158,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -141,7 +167,7 @@ public:
     else if constexpr (N == 2)
       return ((forward_like_t<Self, tuple_impl>)self)._2;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -187,7 +213,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -198,7 +224,7 @@ public:
     else if constexpr (N == 3)
       return ((forward_like_t<Self, tuple_impl>)self)._3;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -249,7 +275,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -262,7 +288,7 @@ public:
     else if constexpr (N == 4)
       return ((forward_like_t<Self, tuple_impl>)self)._4;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -317,7 +343,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -332,7 +358,7 @@ public:
     else if constexpr (N == 5)
       return ((forward_like_t<Self, tuple_impl>)self)._5;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -399,7 +425,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -416,7 +442,7 @@ public:
     else if constexpr (N == 6)
       return ((forward_like_t<Self, tuple_impl>)self)._6;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -488,7 +514,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -507,7 +533,7 @@ public:
     else if constexpr (N == 7)
       return ((forward_like_t<Self, tuple_impl>)self)._7;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -584,7 +610,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -605,7 +631,7 @@ public:
     else if constexpr (N == 8)
       return ((forward_like_t<Self, tuple_impl>)self)._8;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -687,7 +713,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -710,7 +736,7 @@ public:
     else if constexpr (N == 9)
       return ((forward_like_t<Self, tuple_impl>)self)._9;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -817,7 +843,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -842,7 +868,7 @@ public:
     else if constexpr (N == 10)
       return ((forward_like_t<Self, tuple_impl>)self)._10;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -956,7 +982,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -983,7 +1009,7 @@ public:
     else if constexpr (N == 11)
       return ((forward_like_t<Self, tuple_impl>)self)._11;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1104,7 +1130,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1133,7 +1159,7 @@ public:
     else if constexpr (N == 12)
       return ((forward_like_t<Self, tuple_impl>)self)._12;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1261,7 +1287,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1292,7 +1318,7 @@ public:
     else if constexpr (N == 13)
       return ((forward_like_t<Self, tuple_impl>)self)._13;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1427,7 +1453,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1460,7 +1486,7 @@ public:
     else if constexpr (N == 14)
       return ((forward_like_t<Self, tuple_impl>)self)._14;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1603,7 +1629,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1638,7 +1664,7 @@ public:
     else if constexpr (N == 15)
       return ((forward_like_t<Self, tuple_impl>)self)._15;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1794,7 +1820,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -1831,7 +1857,7 @@ public:
     else if constexpr (N == 16)
       return ((forward_like_t<Self, tuple_impl>)self)._16;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -1994,7 +2020,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -2033,7 +2059,7 @@ public:
     else if constexpr (N == 17)
       return ((forward_like_t<Self, tuple_impl>)self)._17;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2203,7 +2229,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -2244,7 +2270,7 @@ public:
     else if constexpr (N == 18)
       return ((forward_like_t<Self, tuple_impl>)self)._18;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2424,7 +2450,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>> get(this Self&& self) noexcept
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19>> get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
       return ((forward_like_t<Self, tuple_impl>)self)._0;
@@ -2467,7 +2493,7 @@ public:
     else if constexpr (N == 19)
       return ((forward_like_t<Self, tuple_impl>)self)._19;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2654,7 +2680,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>> get(
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20>> get(
       this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -2700,7 +2726,7 @@ public:
     else if constexpr (N == 20)
       return ((forward_like_t<Self, tuple_impl>)self)._20;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -2894,7 +2920,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>> get(
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21>> get(
       this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -2942,7 +2968,7 @@ public:
     else if constexpr (N == 21)
       return ((forward_like_t<Self, tuple_impl>)self)._21;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -3143,7 +3169,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>> get(
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22>> get(
       this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -3193,7 +3219,7 @@ public:
     else if constexpr (N == 22)
       return ((forward_like_t<Self, tuple_impl>)self)._22;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -3401,7 +3427,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>> get(
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23>> get(
       this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -3453,7 +3479,7 @@ public:
     else if constexpr (N == 23)
       return ((forward_like_t<Self, tuple_impl>)self)._23;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -3668,7 +3694,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>> get(
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24>> get(
       this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -3722,7 +3748,7 @@ public:
     else if constexpr (N == 24)
       return ((forward_like_t<Self, tuple_impl>)self)._24;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -3944,7 +3970,7 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>>
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25>>
   get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -4000,7 +4026,7 @@ public:
     else if constexpr (N == 25)
       return ((forward_like_t<Self, tuple_impl>)self)._25;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -4257,8 +4283,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self,
-                           ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>>
+  constexpr combine_cvref_t<Self&&,
+                            ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26>>
   get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -4316,7 +4342,7 @@ public:
     else if constexpr (N == 26)
       return ((forward_like_t<Self, tuple_impl>)self)._26;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -4583,8 +4609,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<Self,
-                           ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>>
+  constexpr combine_cvref_t<
+      Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27>>
   get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -4644,7 +4670,7 @@ public:
     else if constexpr (N == 27)
       return ((forward_like_t<Self, tuple_impl>)self)._27;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -4920,8 +4946,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<
-      Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>>
+  constexpr combine_cvref_t<
+      Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28>>
   get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -4983,7 +5009,7 @@ public:
     else if constexpr (N == 28)
       return ((forward_like_t<Self, tuple_impl>)self)._28;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -5267,8 +5293,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<
-      Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>>
+  constexpr combine_cvref_t<
+      Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29>>
   get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -5332,7 +5358,7 @@ public:
     else if constexpr (N == 29)
       return ((forward_like_t<Self, tuple_impl>)self)._29;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -5624,8 +5650,8 @@ public:
   {
   }
   template<std::size_t N, class Self>
-  constexpr forward_like_t<
-      Self, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25, T26, T27, T28, T29, T30>>
+  constexpr combine_cvref_t<Self&&, ttp_pack_indexing_t<N, T0, T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, T17, T18, T19, T20, T21, T22, T23, T24, T25,
+                                                        T26, T27, T28, T29, T30>>
   get(this Self&& self) noexcept
   {
     if constexpr (N == 0)
@@ -5691,7 +5717,7 @@ public:
     else if constexpr (N == 30)
       return ((forward_like_t<Self, tuple_impl>)self)._30;
   }
-  constexpr void swap(tuple_impl& other)
+  void swap(tuple_impl& other)
   {
     using std::swap;
     swap(_0, other._0);
@@ -6114,4 +6140,4 @@ public:
 }  // namespace detail
 }  // namespace yk::alloy
 
-#endif // YK_ALLOY_TUPLE_DETAIL_TUPLE_IMPL_32_HPP
+#endif  // YK_ALLOY_TUPLE_DETAIL_TUPLE_IMPL_32_HPP
