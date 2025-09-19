@@ -185,6 +185,22 @@ BOOST_AUTO_TEST_CASE(tuple_cat)
   }
 }
 
+BOOST_AUTO_TEST_CASE(tuple_split)
+{
+  yk::alloy::tuple<int, float> t(42, 3.14f);
+  auto u = yk::alloy::tuple_split<1>(t);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, yk::alloy::result_of::get_t<0, decltype(u)>>, int&&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, yk::alloy::result_of::get_t<1, decltype(u)>>, float&&>);
+}
+
+BOOST_AUTO_TEST_CASE(tuple_split_view)
+{
+  yk::alloy::tuple<int, float> t(42, 3.14f);
+  auto u = yk::alloy::tuple_split_view<1>(t);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, yk::alloy::result_of::get_t<0, decltype(u)>>, int&>);
+  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, yk::alloy::result_of::get_t<1, decltype(u)>>, float&>);
+}
+
 BOOST_AUTO_TEST_CASE(std_pair)
 {
   using Pair = std::pair<int, float>;

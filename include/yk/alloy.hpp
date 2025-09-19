@@ -10,5 +10,6 @@
 #include "yk/alloy/size.hpp"
 #include "yk/alloy/tuple.hpp"
 #include "yk/alloy/tuple_cat.hpp"
+#include "yk/alloy/tuple_split.hpp"
 
 #endif  // YK_ALLOY_HPP

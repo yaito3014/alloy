@@ -1,6 +1,8 @@
 #ifndef YK_ALLOY_TUPLE_CAT_HPP
 #define YK_ALLOY_TUPLE_CAT_HPP
 
+#include "yk/alloy/detail/deduce_t.hpp"
+
 #include "yk/alloy/get.hpp"
 #include "yk/alloy/size.hpp"
 #include "yk/alloy/tuple.hpp"
@@ -13,28 +15,7 @@ namespace yk::alloy {
 namespace detail {
 
 template<class... Ts>
-struct type_list {};
-
-template<class FromLValue, class FromXValue>
-struct tuple_deduce_impl {
-  static_assert(std::conjunction_v<std::is_reference<FromLValue>, std::is_reference<FromXValue>>);
-};
-
-template<class T>
-struct tuple_deduce_impl<T&, T&> {
-  using type = T&;
-};
-
-template<class T>
-struct tuple_deduce_impl<T&, T&&> {
-  using type = T;
-};
-
-template<std::size_t I, class Tuple>
-struct tuple_deduce : tuple_deduce_impl<result_of::get_t<I, std::remove_cvref_t<Tuple>&>, result_of::get_t<I, std::remove_cvref_t<Tuple>&&>> {};
-
-template<std::size_t I, class Tuple>
-using tuple_deduce_t = typename tuple_deduce<I, Tuple>::type;
+struct type_list;
 
 template<class... Tuples>
 using make_tuple_index_seqeunce_list_t = type_list<std::make_index_sequence<result_of::size_v<Tuples>>...>;
