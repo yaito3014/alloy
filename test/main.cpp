@@ -187,10 +187,13 @@ BOOST_AUTO_TEST_CASE(tuple_cat)
 
 BOOST_AUTO_TEST_CASE(tuple_split)
 {
-  yk::alloy::tuple<int, float> t(42, 3.14f);
-  auto u = yk::alloy::tuple_split<1>(t);
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, yk::alloy::result_of::get_t<0, decltype(u)>>, int&&>);
-  static_assert(std::is_same_v<yk::alloy::result_of::get_t<0, yk::alloy::result_of::get_t<1, decltype(u)>>, float&&>);
+  {
+    constexpr yk::alloy::tuple<int, float> t(42, 3.14f);
+    using split = yk::alloy::detail::tuple_split_result_t<decltype(t), 1>;
+    constexpr auto u = yk::alloy::tuple_split<1>(t);
+    static_assert(yk::alloy::get<0>(yk::alloy::get<0>(u)) == 42);
+    static_assert(yk::alloy::get<0>(yk::alloy::get<1>(u)) == 3.14f);
+  }
 }
 
 BOOST_AUTO_TEST_CASE(std_pair)
