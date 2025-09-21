@@ -189,8 +189,7 @@ BOOST_AUTO_TEST_CASE(tuple_split)
 {
   {
     constexpr yk::alloy::tuple<int, float> t(42, 3.14f);
-    using split = yk::alloy::detail::tuple_split_result_t<decltype(t), 1>;
-    constexpr auto u = yk::alloy::tuple_split<1>(t);
+    constexpr auto u = yk::alloy::tuple_split<1, 1>(t);
     static_assert(yk::alloy::get<0>(yk::alloy::get<0>(u)) == 42);
     static_assert(yk::alloy::get<0>(yk::alloy::get<1>(u)) == 3.14f);
   }
