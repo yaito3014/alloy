@@ -1,7 +1,7 @@
 #ifndef YK_ALLOY_TUPLE_SPLIT_HPP
 #define YK_ALLOY_TUPLE_SPLIT_HPP
 
-#include "yk/alloy/detail/deduce_t.hpp"
+#include "yk/alloy/detail/tuple_deduce_t.hpp"
 
 #include "yk/alloy/tuple.hpp"
 
